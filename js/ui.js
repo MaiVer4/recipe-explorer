@@ -19,3 +19,18 @@ export function renderRecipes(recipes) {
         container.appendChild(card);
     });
 }
+
+export function renderHistory(history) {
+    const container = document.getElementById("history-container");
+
+    container.innerHTML = "";
+
+    history.forEach(item => {
+        const btn = document.createElement("button");
+        btn.textContent = item;
+        btn.classList.add("history-item");
+        btn.dataset.query = item;
+
+        container.appendChild(btn);
+    });
+}
