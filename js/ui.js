@@ -34,3 +34,10 @@ export function renderHistory(history) {
         container.appendChild(btn);
     });
 }
+
+export function paginate(recipes, page, itemsPerPage) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    return recipes.slice(start, end);
+}
