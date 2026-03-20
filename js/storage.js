@@ -1,10 +1,10 @@
-const HISTORY_KEY = "recipe_search_history";
+const ITEMS_KEY = "items_per_page";
 
-export function saveSearchHistory(history) {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+export function saveItemsPerPage(value) {
+    localStorage.setItem(ITEMS_KEY, value);
 }
 
-export function getSearchHistory() {
-    const data = localStorage.getItem(HISTORY_KEY);
-    return data ? JSON.parse(data) : [];
+export function getItemsPerPage() {
+    return Number(localStorage.getItem(ITEMS_KEY)) || 10;
 }
+
