@@ -41,3 +41,20 @@ export function paginate(recipes, page, itemsPerPage) {
 
     return recipes.slice(start, end);
 }
+
+export function renderPagination(state) {
+    const container = document.getElementById("pagination-container");
+
+    container.innerHTML = `
+        <button id="prev-btn">Anterior</button>
+        <span>Página ${state.currentPage} de ${state.totalPages}</span>
+        <button id="next-btn">Siguiente</button>
+
+        <select id="items-per-page">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+        </select>
+    `;
+    document.getElementById("items-per-page").value = state.itemsPerPage;
+}
