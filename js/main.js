@@ -2,15 +2,18 @@ import { searchRecipes } from "./service.js";
 import { state } from "./state.js";
 import { renderRecipes, renderHistory } from "./ui.js";
 import { loadHistory, addToHistory } from "./persistence.js";
+import { paginate, renderPagination } from "./ui.js";
 
 async function handleSearch(query) {
     state.searchQuery = query;
+    state.currentPage = 1;
+
     state.recipes = await searchRecipes(query);
+    state.totalPages = Math.ceil(state.recipes.length / state.itemsPerPage);
 
     addToHistory(state, query);
 
-    renderRecipes(state.recipes);
-    renderHistory(state.searchHistory);
+    updateView();
 }
 
 function setupSearch() {
@@ -38,12 +41,25 @@ async function init() {
     loadHistory(state);
 
     state.recipes = await searchRecipes();
-    
-    renderRecipes(state.recipes);
-    renderHistory(state.searchHistory);
+    state.totalPages = Math.ceil(state.recipes.length / state.itemsPerPage);
+
+    updateView();
 
     setupSearch();
     setupHistoryClicks();
-}
+    setupPagination();
+}  setupHistoryClicks();
 
 document.addEventListener("DOMContentLoaded", init);
+
+function updateView() {
+    const paginated = paginate(
+        state.recipes,
+        state.currentPage,
+        state.itemsPerPage
+    );
+
+    renderRecipes(paginated);
+    renderPagination(state);
+    renderHistory(state.searchHistory);
+}
