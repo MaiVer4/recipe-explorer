@@ -63,3 +63,33 @@ function updateView() {
     renderPagination(state);
     renderHistory(state.searchHistory);
 }
+
+function setupPagination() {
+    const container = document.getElementById("pagination-container");
+
+    container.addEventListener("click", (e) => {
+
+        if (e.target.id === "prev-btn" && state.currentPage > 1) {
+            state.currentPage--;
+            updateView();
+        }
+
+        if (e.target.id === "next-btn" && state.currentPage < state.totalPages) {
+            state.currentPage++;
+            updateView();
+        }
+    });
+
+    container.addEventListener("change", (e) => {
+        if (e.target.id === "items-per-page") {
+            state.itemsPerPage = Number(e.target.value);
+            state.currentPage = 1;
+
+            state.totalPages = Math.ceil(state.recipes.length / state.itemsPerPage);
+
+            localStorage.setItem("itemsPerPage", state.itemsPerPage);
+
+            updateView();
+        }
+    });
+}
