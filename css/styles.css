@@ -1,0 +1,19 @@
+body {
+    font-family: Arial;
+    margin: 20px;
+}
+
+#recipes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+img {
+    width: 100%;
+}
