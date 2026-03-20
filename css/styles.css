@@ -27,3 +27,7 @@ img {
     padding: 5px 10px;
     cursor: pointer;
 }
+
+#pagination-container {
+    margin-top: 20px;
+}
